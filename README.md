@@ -47,8 +47,8 @@ It includes:
 
 - Dual-branch model: Combines ViT and EfficientNet for robust detection
 - EfficientNet-B3 backbone: Lightweight yet effective CNN
-- Web interface to upload and analyze face images (UI under development)
-- Modular design for future enhancements (e.g., ViT-Tiny, ensemble models)
+- Web interface to upload and analyze face images 
+- Modular design for future enhancements
   
 ---
 
@@ -58,13 +58,4 @@ It includes:
 - Ghulam Haider – 2024CSM1008  
 - **Simran Prasad** – 2024CSM1018  
 - Yogeshwar – 2024CSM1021  
-
----
-
-## Citation
-
-> ViXNet: Vision Transformer with Xception Network for Deepfake Detection (202X)  
-[Refer to the original paper cited in the report]
-
----
 
