@@ -9,7 +9,7 @@ Indian Institute of Technology Ropar
 
 ## Abstract
 
-This project addresses the growing challenge of detecting image-based deepfakes. We adapt the ViXNet architecture by replacing the heavyweight Xception backbone with **EfficientNet-B3**, significantly improving computational efficiency while retaining strong detection performance.
+This project addresses the growing challenge of detecting image-based deepfakes. The ViXNet architecture is adapted by replacing the heavyweight Xception backbone with **EfficientNet-B3**, significantly improving computational efficiency while retaining strong detection performance.
 
 The dual-branch model combines:
 - A **Vision Transformer (ViT-B16)** for patch-based local/global relationships
@@ -22,7 +22,7 @@ The dual-branch model combines:
 
 ## Report
 
-You can find the full technical report here:  
+Full technical report:  
 [`Deepfake_Detection_Project_Report.pdf`](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf)
 
 It includes:
