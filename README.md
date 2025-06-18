@@ -23,7 +23,7 @@ The dual-branch model combines:
 ## Report
 
 You can find the full technical report here:  
-[`Deepfake_Detection_Project_Report.pdf`]([./report/Deepfake_Detection_Project_Report.pdf](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf))
+[`Deepfake_Detection_Project_Report.pdf`](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf)
 
 It includes:
 - Model architecture
