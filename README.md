@@ -128,7 +128,7 @@ python train.py
 ## 📎 Report
 
 Full technical documentation:  
-[`Deepfake_Detection_Project_Report.pdf`](./report/Deepfake_Detection_Project_Report.pdf)
+[`Deepfake_Detection_Project_Report.pdf`](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf)
 
 Includes:
 - Model architecture
