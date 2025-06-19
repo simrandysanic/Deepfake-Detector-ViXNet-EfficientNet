@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Image Detector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none; }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-left-color: #ffffff;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .dropzone {
+            transition: all 0.3s ease;
+        }
+        .dropzone.dragover {
+            background-color: #e0f2fe;
+            border-color: #3b82f6;
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6b7280 0%, #1e3a8a 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center gradient-bg p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-8 transform hover:scale-105 transition duration-300">
+        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-4">Deepfake Detector</h1>
+        <p class="text-center text-gray-600 mb-6">Upload an image to detect if it's real or fake with AI.</p>
+
+        <!-- Drag-and-Drop Area -->
+        <div class="dropzone border-2 border-dashed border-gray-300 rounded-lg p-6 mb-6 text-center hover:border-blue-500 transition duration-300"
+             id="dropzone">
+            <input type="file" id="imageInput" accept="image/png,image/jpeg,image/jpg"
+                   class="hidden">
+            <p class="text-gray-500">Drag & drop an image here or <span class="text-blue-600 cursor-pointer hover:underline" onclick="document.getElementById('imageInput').click()">browse</span></p>
+            <p class="text-sm text-gray-400 mt-2">Supports PNG, JPG, JPEG (max 10MB)</p>
+        </div>
+
+        <!-- Analyze Button -->
+        <button id="analyzeBtn" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg
+                                       hover:bg-blue-700 transition duration-300 flex items-center justify-center
+                                       font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+            Analyze Image
+            <span id="spinner" class="spinner ml-3 hidden"></span>
+        </button>
+
+        <!-- Result Section -->
+        <div id="result" class="mt-6 hidden fade-in">
+            <div id="resultText" class="text-xl font-semibold text-center mb-2"></div>
+            <div id="confidence" class="text-sm text-gray-600 text-center mb-4"></div>
+            <img id="uploadedImage" class="w-full rounded-lg shadow-md" alt="Uploaded image">
+        </div>
+
+        <!-- Error Section -->
+        <div id="error" class="mt-6 hidden fade-in">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center">
+                <span id="errorText"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const dropzone = document.getElementById('dropzone');
+        const spinner = document.getElementById('spinner');
+        const resultDiv = document.getElementById('result');
+        const resultText = document.getElementById('resultText');
+        const confidenceText = document.getElementById('confidence');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const errorDiv = document.getElementById('error');
+        const errorText = document.getElementById('errorText');
+
+        // Drag-and-Drop Handlers
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                imageInput.files = e.dataTransfer.files;
+            }
+        });
+
+        // File Input Change Handler
+        imageInput.addEventListener('change', () => {
+            if (imageInput.files[0]) {
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        // Analyze Button Handler
+        analyzeBtn.addEventListener('click', async () => {
+            if (!imageInput.files[0]) {
+                showError('Please select or drop an image');
+                return;
+            }
+
+            spinner.classList.remove('hidden');
+            analyzeBtn.disabled = true;
+            resultDiv.classList.add('hidden');
+            errorDiv.classList.add('hidden');
+
+            const formData = new FormData();
+            formData.append('file', imageInput.files[0]);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultText.textContent = `Result: ${data.result}`;
+                    resultText.className = `text-xl font-semibold text-center mb-2 ${data.result === 'Real' ? 'text-green-600' : 'text-red-600'}`;
+                    confidenceText.textContent = `Confidence: ${data.confidence}`;
+                    uploadedImage.src = data.image_url;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    showError(data.error);
+                }
+            } catch (err) {
+                showError('An error occurred. Please try again.');
+            } finally {
+                spinner.classList.add('hidden');
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        // Disable analyze button initially
+        analyzeBtn.disabled = true;
+    </script>
+</body>
+</html>
