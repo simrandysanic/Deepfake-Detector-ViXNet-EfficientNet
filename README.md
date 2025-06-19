@@ -111,15 +111,6 @@ python train.py
 Full technical documentation:  
 [`Deepfake_Detection_Project_Report.pdf`](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf)
 
-## 👨‍💻 Contributors
-
-- Divya Chauhan — 2024CSM1006  
-- Ghulam Haider — 2024CSM1008  
-- **Simran Prasad** — 2024CSM1018  
-- Yogeshwar — 2024CSM1021  
-
----
-
 ## 🧠 Acknowledgments
 
 - ViXNet authors for their original architecture and methodology  
