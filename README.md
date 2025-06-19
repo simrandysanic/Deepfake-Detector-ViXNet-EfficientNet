@@ -56,25 +56,6 @@ The dual-branch model combines:
 
 ---
 
-## 💻 Repository Structure
-
-```
-deepfake-detection-vixnet/
-├── app.py                  # Flask web application
-├── templates/
-│   └── index.html          # Web UI
-├── best_combined_model.pth# Trained model (download separately)
-├── requirements.txt        # Python dependencies
-├── train.py                # Model training script
-├── preprocess.py           # Preprocessing utilities
-├── evaluate.py             # Evaluation logic
-├── README.md
-└── report/
-    └── Deepfake_Detection_Project_Report.pdf
-```
-
----
-
 ## 📦 Installation & Setup
 
 ### Prerequisites
@@ -129,15 +110,6 @@ python train.py
 
 Full technical documentation:  
 [`Deepfake_Detection_Project_Report.pdf`](https://github.com/simrandysanic/Deepfake-Detector-ViXNet-EfficientNet/blob/main/Report.pdf)
-
-Includes:
-- Model architecture
-- Dataset usage
-- Implementation details
-- Performance comparison
-- Limitations & future work
-
----
 
 ## 👨‍💻 Contributors
 
